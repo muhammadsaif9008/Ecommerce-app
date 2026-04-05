@@ -1,0 +1,96 @@
+@model ECommerceApp.Models.Item
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<div class="row">
+    <div class="col-md-5">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" class="img-fluid rounded" />
+        }
+    </div>
+    <div class="col-md-7">
+        <h2>@Model.Name</h2>
+        <p class="text-muted">@Model.Category | @Model.Condition</p>
+        <h4>€@Model.Price</h4>
+        <p>@Model.Description</p>
+        <p><strong>Seller:</strong> @Model.Seller</p>
+
+        @if (Model.BatteryLife.HasValue)
+        {
+            <p><strong>Battery Life:</strong> @Model.BatteryLife hours</p>
+        }
+        @if (Model.Age.HasValue)
+        {
+            <p><strong>Age:</strong> @Model.Age years</p>
+        }
+        @if (!string.IsNullOrEmpty(Model.Size))
+        {
+            <p><strong>Size:</strong> @Model.Size</p>
+        }
+        @if (!string.IsNullOrEmpty(Model.Material))
+        {
+            <p><strong>Material:</strong> @Model.Material</p>
+        }
+
+        <p>⭐ <strong>@Model.AverageRating.ToString("0.0")</strong>
+            (@Model.Ratings.Count ratings)</p>
+
+        @if (User.Identity!.IsAuthenticated && !User.IsInRole("admin"))
+        {
+            <form asp-controller="Item" asp-action="Rate" method="post" class="mb-3">
+                <input type="hidden" name="itemId" value="@Model.Id" />
+                <label class="form-label"><strong>Rate this item:</strong></label>
+                <div class="d-flex gap-2 align-items-center">
+                    <select name="score" class="form-select w-auto">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <button class="btn btn-dark btn-sm">Submit Rating</button>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+<hr class="mt-4" />
+<h4>Reviews</h4>
+
+@if (!Model.Reviews.Any())
+{
+    <p class="text-muted">No reviews yet.</p>
+}
+else
+{
+    @foreach (var review in Model.Reviews)
+    {
+        <div class="card mb-2">
+            <div class="card-body">
+                <strong>@review.Username</strong>
+                <span class="text-muted ms-2">
+                    @review.CreatedAt.ToString("MMM dd, yyyy")
+                </span>
+                <p class="mb-0 mt-1">@review.Text</p>
+            </div>
+        </div>
+    }
+}
+
+@if (User.Identity!.IsAuthenticated && !User.IsInRole("admin"))
+{
+    <div class="mt-3">
+        <h5>Write a Review</h5>
+        <form asp-controller="Item" asp-action="Review" method="post">
+            <input type="hidden" name="itemId" value="@Model.Id" />
+            <div class="mb-3">
+                <textarea name="text" class="form-control" rows="3"
+                          placeholder="Write your review..." required></textarea>
+            </div>
+            <button class="btn btn-dark">Submit Review</button>
+        </form>
+    </div>
+}

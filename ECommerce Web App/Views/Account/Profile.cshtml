@@ -1,0 +1,33 @@
+@model ECommerceApp.Models.User
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<h2 class="mb-4">My Profile</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>@Model.Username</h5>
+        <p class="text-muted">Average Rating Given:
+            <strong>@Model.AverageRating.ToString("0.0")</strong>
+        </p>
+    </div>
+</div>
+
+<h4>My Reviews</h4>
+@if (!Model.Reviews.Any())
+{
+    <p class="text-muted">You haven't reviewed any items yet.</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var review in Model.Reviews)
+        {
+            <li class="list-group-item">
+                <strong>@review.ItemName</strong>
+                <p class="mb-0">@review.Text</p>
+            </li>
+        }
+    </ul>
+}

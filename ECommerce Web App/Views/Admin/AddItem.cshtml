@@ -1,0 +1,69 @@
+@{
+    ViewData["Title"] = "Add Item";
+}
+
+<h2 class="mb-4">Add New Item</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="AddItem" method="post">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="Name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="Description" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price (€)</label>
+                <input type="number" name="Price" step="0.01"
+                       class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Seller</label>
+                <input type="text" name="Seller" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Image URL</label>
+                <input type="text" name="ImageUrl" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select name="Category" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option>Vinyls</option>
+                    <option>Antique Furniture</option>
+                    <option>GPS Sport Watches</option>
+                    <option>Running Shoes</option>
+                    <option>Camping Tents</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Condition</label>
+                <select name="Condition" class="form-select">
+                    <option>New</option>
+                    <option>Used</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Battery Life (hours) — GPS Watches only</label>
+                <input type="number" name="BatteryLife" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Age (years) — Antiques & Vinyls only</label>
+                <input type="number" name="Age" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Size — Running Shoes only</label>
+                <input type="text" name="Size" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Material — Antiques & Running Shoes only</label>
+                <input type="text" name="Material" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-dark">Add Item</button>
+            <a asp-action="Index" class="btn btn-outline-dark ms-2">Cancel</a>
+        </form>
+    </div>
+</div>
