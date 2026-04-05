@@ -16,7 +16,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Publish
-        run: dotnet publish "ECommerce Web App.sln" -c Release -o ./publish
+        run: |
+          PROJECT=$(find . -name "*.csproj" | head -1)
+          echo "Found project: $PROJECT"
+          dotnet publish "$PROJECT" -c Release -o ./publish
 
       - name: Copy files to VM
         uses: appleboy/scp-action@v0.1.7
