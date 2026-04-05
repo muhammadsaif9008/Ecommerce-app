@@ -1,0 +1,51 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<ECommerceApp.Models.Item>
+
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h2 class="mb-4">Available Items</h2>
+
+<!-- Category Filter -->
+<div class="mb-4">
+    <a href="/" class="btn btn-sm @(ViewBag.SelectedCategory == null ? 
+                                      "btn-dark" : "btn-outline-dark")">All</a>
+    @foreach (var cat in ViewBag.Categories)
+    {
+        <a href="/?category=@cat"
+           class="btn btn-sm @(ViewBag.SelectedCategory == cat ? 
+                                 "btn-dark" : "btn-outline-dark") ms-1">@cat</a>
+    }
+</div>
+
+<!-- Items Grid -->
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+                    <img src="@item.ImageUrl" class="card-img-top"
+                         style="height:200px; object-fit:cover;" />
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text text-muted">@item.Category</p>
+                    <p class="card-text">€@item.Price</p>
+                    <p class="card-text">
+                        ⭐ @item.AverageRating.ToString("0.0")
+                        (@item.Ratings.Count ratings)
+                    </p>
+                    <a asp-controller="Item" asp-action="Details"
+                       asp-route-id="@item.Id"
+                       class="btn btn-dark btn-sm">View Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
