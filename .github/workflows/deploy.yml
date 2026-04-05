@@ -24,8 +24,8 @@ jobs:
           host: 40.66.42.32
           username: azureuser
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ./publish/*
-          target: /var/www/ecommerce
+          source: "publish/*"
+          target: "/var/www/ecommerce"
 
       - name: Restart service
         uses: appleboy/ssh-action@v1.0.3
@@ -33,33 +33,4 @@ jobs:
           host: 40.66.42.32
           username: azureuser
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: sudo systemctl restart ecommercename: Deploy to Azure VM
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Publish
-        run: dotnet publish -c Release -o ./publish
-
-      - name: Deploy to Azure VM
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: 40.66.42.32
-          username: azureuser
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ./publish/*
-          target: /var/www/ecommerce
-          script: |
-            sudo systemctl restart ecommerce
+          script: "sudo systemctl restart ecommerce"
