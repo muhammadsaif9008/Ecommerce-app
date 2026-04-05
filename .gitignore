@@ -1,5 +1,9 @@
 bin/
 obj/
+<<<<<<< HEAD
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+=======
+appsettings.json
+>>>>>>> ca490aec895ea1cb2db5cbc186224428c5cea6fd
