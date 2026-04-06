@@ -1,6 +1,6 @@
 # E-Commerce Web Application
 
-**Live URL:** http://localhost:5212
+**Live URL:** http://40.66.42.32
 
 ---
 
@@ -16,9 +16,9 @@
 | Regular User | Göksu    | Saif@123      |
 
 ### As a Regular User
-1. Go to http://localhost:5212
-2. Click **Sign In** and login with alice / alice123
-3. Browse items on the home page — use category filters to narrow results
+1. Go to http://40.66.42.32
+2. Click **Sign In** and login with Rehan / Saif@123
+3. Browse items on the home page - use category filters to narrow results
 4. Click any item to view its details
 5. Submit a rating (1-5 stars) and write a review on the item page
 6. Click **My Profile** in the navbar to see your reviews and average rating
@@ -28,7 +28,7 @@
 2. You are redirected to the Admin Panel automatically
 3. Use **+ Add Item** to create new items with category-specific fields
 4. Use **+ Add User** to create new user accounts
-5. Use **Delete** buttons to remove items or users — all related ratings and reviews are automatically cleaned up
+5. Use **Delete** buttons to remove items or users, all related ratings and reviews are automatically cleaned up
 
 ---
 

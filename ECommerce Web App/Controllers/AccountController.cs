@@ -48,6 +48,45 @@ namespace ECommerceApp.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        public IActionResult Register() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Register(string username, string password)
+        {
+            // Check if username already exists
+            var existing = await _mongoDbService.GetUserByUsernameAsync(username);
+            if (existing != null)
+            {
+                ViewBag.Error = "Username already taken. Please choose another.";
+                return View();
+            }
+
+            var user = new User
+            {
+                Username = username,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(password),
+                Role = "user"
+            };
+
+            await _mongoDbService.CreateUserAsync(user);
+
+            // Auto login after registration
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id!),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Role)
+            };
+
+            var identity = new ClaimsIdentity(claims,
+                CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            return RedirectToAction("Index", "Home");
+        }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
