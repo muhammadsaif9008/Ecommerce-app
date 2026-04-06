@@ -5,6 +5,8 @@
 ---
 
 ## How to Use the Application
+**New users can also self-register** by clicking "Create one" on the login page.
+Registered users get a regular user account automatically.
 
 ### Login Credentials
 
@@ -73,9 +75,12 @@ This denormalized design means reads are fast — fetching an item gives you all
 ## Database Population
 
 The application is seeded with:
-- **8 items** covering all 5 required categories (Vinyls, Antique Furniture, GPS Sport Watches, Running Shoes, Camping Tents)
-- **3 regular users** (alice, bob, carol) plus 1 admin user
-- Every item has been rated and reviewed by at least one user
+## Seeded Data
+- 8 items across all 5 categories (Vinyls, Antique Furniture, GPS Sport Watches,
+  Running Shoes, Camping Tents)
+- 3 regular users and 1 admin pre-seeded in the database
+- New users can register directly through the app
+- Every item has been rated and reviewed at least once
 
 ---
 
