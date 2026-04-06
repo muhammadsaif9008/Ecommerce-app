@@ -3,31 +3,39 @@
     ViewData["Title"] = "My Profile";
 }
 
-<h2 class="mb-4">My Profile</h2>
-
-<div class="card mb-4">
-    <div class="card-body">
-        <h5>@Model.Username</h5>
-        <p class="text-muted">Average Rating Given:
-            <strong>@Model.AverageRating.ToString("0.0")</strong>
-        </p>
+<div class="profile-header">
+    <div class="profile-avatar">@Model.Username[0].ToString().ToUpper()</div>
+    <div class="profile-info">
+        <h1>@Model.Username</h1>
+        <span class="badge badge-gray">Member</span>
     </div>
 </div>
 
-<h4>My Reviews</h4>
-@if (!Model.Reviews.Any())
-{
-    <p class="text-muted">You haven't reviewed any items yet.</p>
-}
-else
-{
-    <ul class="list-group">
+<div class="profile-stats">
+    <div class="stat-box">
+        <div class="stat-value">@Model.AverageRating.ToString("0.0")</div>
+        <div class="stat-label">Avg Rating Given</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-value">@Model.Reviews.Count</div>
+        <div class="stat-label">Reviews Written</div>
+    </div>
+</div>
+
+<div class="reviews-list">
+    <h2>My Reviews</h2>
+    @if (!Model.Reviews.Any())
+    {
+        <p style="color:var(--text-muted); font-size:0.9rem;">You haven't reviewed any items yet.</p>
+    }
+    else
+    {
         @foreach (var review in Model.Reviews)
         {
-            <li class="list-group-item">
-                <strong>@review.ItemName</strong>
-                <p class="mb-0">@review.Text</p>
-            </li>
+            <div class="review-row">
+                <div class="review-item-name">@review.ItemName</div>
+                <div class="review-text">@review.Text</div>
+            </div>
         }
-    </ul>
-}
+    }
+</div>

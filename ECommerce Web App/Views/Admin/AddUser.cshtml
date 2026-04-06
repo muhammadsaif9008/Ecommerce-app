@@ -2,28 +2,33 @@
     ViewData["Title"] = "Add User";
 }
 
-<h2 class="mb-4">Add New User</h2>
+<a asp-action="Index" style="font-size:0.8rem; color:var(--text-muted); text-decoration:none; display:inline-flex; gap:0.4rem; margin-bottom:2rem;">← Back to Admin Panel</a>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="AddUser" method="post">
-            <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input type="text" name="username" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Role</label>
-                <select name="role" class="form-select">
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-dark">Create User</button>
-            <a asp-action="Index" class="btn btn-outline-dark ms-2">Cancel</a>
-        </form>
-    </div>
+<div class="form-page-header">
+    <div class="eyebrow">Admin</div>
+    <h1>Add New User</h1>
+</div>
+
+<div class="form-panel" style="max-width:400px;">
+    <form asp-action="AddUser" method="post">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" required placeholder="Choose a username" />
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" required placeholder="Set a password" />
+        </div>
+        <div class="form-group">
+            <label>Role</label>
+            <select name="role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Create User</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
 </div>

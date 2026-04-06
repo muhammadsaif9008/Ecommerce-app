@@ -1,77 +1,76 @@
 @model List<ECommerceApp.Models.Item>
 @{
-    ViewData["Title"] = "Admin Panel";
+ViewData["Title"] = "Admin Panel";
 }
 
-<h2 class="mb-4">Admin Panel</h2>
+<div class="admin-header">
+    <div class="admin-eyebrow">Dashboard</div>
+    <h1>Admin Panel</h1>
+</div>
 
-<div class="row">
-    <div class="col-md-8">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4>Items</h4>
-            <a asp-action="AddItem" class="btn btn-dark btn-sm">+ Add Item</a>
+<div class="admin-grid">
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-title">Items <span class="count-badge">@Model.Count</span></span>
+            <a asp-action="AddItem" class="btn btn-primary">+ Add Item</a>
         </div>
-        <table class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Action</th>
-                </tr>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Action</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Name</td>
-                        <td>@item.Category</td>
-                        <td>€@item.Price</td>
-                        <td>
-                            <form asp-action="DeleteItem" method="post">
-                                <input type="hidden" name="id" value="@item.Id" />
-                                <button class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Delete this item?')">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                }
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Name</td>
+                <td><span class="badge badge-gray">@item.Category</span></td>
+                <td style="color:var(--gold); font-family:'Playfair Display',serif;">€@item.Price</td>
+                <td style="color:var(--text-muted);">★ @item.AverageRating.ToString("0.0")</td>
+                <td>
+                    <form asp-action="DeleteItem" method="post">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button class="btn btn-danger" onclick="return confirm('Delete?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            }
             </tbody>
         </table>
     </div>
 
-    <div class="col-md-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4>Users</h4>
-            <a asp-action="AddUser" class="btn btn-dark btn-sm">+ Add User</a>
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-title">Users</span>
+            <a asp-action="AddUser" class="btn btn-primary">+ Add User</a>
         </div>
-        <table class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                </tr>
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var user in ViewBag.Users)
-                {
-                    <tr>
-                        <td>@user.Username</td>
-                        <td>@user.Role</td>
-                        <td>
-                            <form asp-action="DeleteUser" method="post">
-                                <input type="hidden" name="id" value="@user.Id" />
-                                <button class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Delete this user?')">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                }
+            @foreach (var user in ViewBag.Users)
+            {
+            <tr>
+                <td>@user.Username</td>
+                <td><span class="badge @(user.Role == "admin" ? "badge-gold" : "badge-gray")">@user.Role</span></td>
+                <td>
+                    <form asp-action="DeleteUser" method="post">
+                        <input type="hidden" name="id" value="@user.Id" />
+                        <button class="btn btn-danger" onclick="return confirm('Delete?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            }
             </tbody>
         </table>
     </div>

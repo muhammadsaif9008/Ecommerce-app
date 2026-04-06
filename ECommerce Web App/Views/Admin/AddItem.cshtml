@@ -2,36 +2,38 @@
     ViewData["Title"] = "Add Item";
 }
 
-<h2 class="mb-4">Add New Item</h2>
+<a asp-action="Index" style="font-size:0.8rem; color:var(--text-muted); text-decoration:none; display:inline-flex; gap:0.4rem; margin-bottom:2rem;">← Back to Admin Panel</a>
 
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="AddItem" method="post">
-            <div class="mb-3">
-                <label class="form-label">Name</label>
-                <input type="text" name="Name" class="form-control" required />
+<div class="form-page-header">
+    <div class="eyebrow">Admin</div>
+    <h1>Add New Item</h1>
+</div>
+
+<div class="form-panel">
+    <form asp-action="AddItem" method="post">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Item Name</label>
+                <input type="text" name="Name" required placeholder="Enter item name" />
             </div>
-            <div class="mb-3">
-                <label class="form-label">Description</label>
-                <textarea name="Description" class="form-control" rows="3"></textarea>
+            <div class="form-group">
+                <label>Price (€)</label>
+                <input type="number" name="Price" step="0.01" required placeholder="0.00" />
             </div>
-            <div class="mb-3">
-                <label class="form-label">Price (€)</label>
-                <input type="number" name="Price" step="0.01"
-                       class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="Description" rows="3" placeholder="Describe the item..."></textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Seller</label>
+                <input type="text" name="Seller" placeholder="Seller name" />
             </div>
-            <div class="mb-3">
-                <label class="form-label">Seller</label>
-                <input type="text" name="Seller" class="form-control" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Image URL</label>
-                <input type="text" name="ImageUrl" class="form-control" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Category</label>
-                <select name="Category" class="form-select" required>
-                    <option value="">-- Select --</option>
+            <div class="form-group">
+                <label>Category</label>
+                <select name="Category" required>
+                    <option value="">— Select Category —</option>
                     <option>Vinyls</option>
                     <option>Antique Furniture</option>
                     <option>GPS Sport Watches</option>
@@ -39,31 +41,44 @@
                     <option>Camping Tents</option>
                 </select>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Condition</label>
-                <select name="Condition" class="form-select">
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Condition</label>
+                <select name="Condition">
                     <option>New</option>
                     <option>Used</option>
                 </select>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Battery Life (hours) — GPS Watches only</label>
-                <input type="number" name="BatteryLife" class="form-control" />
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" name="ImageUrl" placeholder="https://..." />
             </div>
-            <div class="mb-3">
-                <label class="form-label">Age (years) — Antiques & Vinyls only</label>
-                <input type="number" name="Age" class="form-control" />
+        </div>
+        <div class="form-section-title">Category-Specific Fields</div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Battery Life (hrs) — GPS Watches</label>
+                <input type="number" name="BatteryLife" placeholder="e.g. 13" />
             </div>
-            <div class="mb-3">
-                <label class="form-label">Size — Running Shoes only</label>
-                <input type="text" name="Size" class="form-control" />
+            <div class="form-group">
+                <label>Age (years) — Antiques & Vinyls</label>
+                <input type="number" name="Age" placeholder="e.g. 50" />
             </div>
-            <div class="mb-3">
-                <label class="form-label">Material — Antiques & Running Shoes only</label>
-                <input type="text" name="Material" class="form-control" />
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Size — Running Shoes</label>
+                <input type="text" name="Size" placeholder="e.g. EU 42" />
             </div>
-            <button type="submit" class="btn btn-dark">Add Item</button>
-            <a asp-action="Index" class="btn btn-outline-dark ms-2">Cancel</a>
-        </form>
-    </div>
+            <div class="form-group">
+                <label>Material — Antiques & Shoes</label>
+                <input type="text" name="Material" placeholder="e.g. Oak, Mesh" />
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Add Item</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
 </div>

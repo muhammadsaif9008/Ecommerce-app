@@ -1,44 +1,54 @@
 ﻿@model List<ECommerceApp.Models.Item>
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Browse";
 }
 
-<h2 class="mb-4">Available Items</h2>
+<div class="hero">
+    <div class="hero-eyebrow">Curated Collection</div>
+    <h1>Discover Rare<br>& Unique Items</h1>
+    <p>Vinyls, antiques, watches, shoes, and outdoor gear — all in one place.</p>
+</div>
 
-<div class="mb-4">
-    <a href="/" class="btn btn-sm @(ViewBag.SelectedCategory == null ?
-                                      "btn-dark" : "btn-outline-dark")">All</a>
+<div class="filter-bar">
+    <span class="filter-label">Filter</span>
+    <a href="/" class="filter-btn @(ViewBag.SelectedCategory == null ? "active" : "")">All</a>
     @foreach (var cat in ViewBag.Categories)
     {
-        <a href="/?category=@cat"
-           class="btn btn-sm @(ViewBag.SelectedCategory == cat ?
-                                 "btn-dark" : "btn-outline-dark") ms-1">@cat</a>
+        <a href="/?category=@cat" class="filter-btn @(ViewBag.SelectedCategory == cat ? "active" : "")">@cat</a>
     }
 </div>
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <h3>No items found</h3>
+        <p>Try a different category or check back later.</p>
+    </div>
+}
+else
+{
+    <div class="items-grid">
+        @foreach (var item in Model)
+        {
+            <a asp-controller="Item" asp-action="Details" asp-route-id="@item.Id" class="item-card">
                 @if (!string.IsNullOrEmpty(item.ImageUrl))
                 {
-                    <img src="@item.ImageUrl" class="card-img-top"
-                         style="height:200px; object-fit:cover;" />
+                    <img src="@item.ImageUrl" class="item-img" alt="@item.Name" />
                 }
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text text-muted">@item.Category</p>
-                    <p class="card-text">€@item.Price</p>
-                    <p class="card-text">
-                        ⭐ @item.AverageRating.ToString("0.0")
-                        (@item.Ratings.Count ratings)
-                    </p>
-                    <a asp-controller="Item" asp-action="Details"
-                       asp-route-id="@item.Id"
-                       class="btn btn-dark btn-sm">View Details</a>
+                else
+                {
+                    <div class="item-img-placeholder">◈</div>
+                }
+                <div class="item-body">
+                    <div class="item-category">@item.Category</div>
+                    <div class="item-name">@item.Name</div>
+                    <div style="font-size:0.8rem; color:var(--text-muted)">@item.Condition</div>
+                    <div class="item-footer">
+                        <div class="item-price">€@item.Price</div>
+                        <div class="item-rating">★ @item.AverageRating.ToString("0.0") | @item.Ratings.Count reviews</div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    }
-</div>
+            </a>
+        }
+    </div>
+}
