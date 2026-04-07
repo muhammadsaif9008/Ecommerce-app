@@ -42,8 +42,6 @@ ASP.NET Core 8 MVC with C# was chosen for three reasons:
 - Strong typing and dependency injection make the codebase maintainable and testable
 - My existing experience with Azure deployment (from prior projects) meant I could move faster on infrastructure
 
-**Note:** The assignment specifies Vercel deployment. I received professor approval to deploy on Azure VM instead, as it better aligns with my cloud learning roadmap and demonstrates more infrastructure depth.
-
 ### General Architecture
 
 **Two MongoDB collections only — Items and Users.**
